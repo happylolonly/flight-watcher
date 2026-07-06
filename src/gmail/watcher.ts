@@ -1,16 +1,6 @@
-import { parseGoogleFlights } from "../parser/googleFlights";
-import { parseSkyscanner } from "../parser/skyscanner";
-import { parseTrip } from "../parser/trip";
 import { sendTelegramMessage } from "../telegram/sender";
-import type { FlightAlert } from "../utils/formatter";
-
-type ProviderParser = (email: GoogleAppsScript.Gmail.GmailMessage) => FlightAlert | null;
-
-const PARSERS: Array<{ match: (from: string) => boolean; parse: ProviderParser }> = [
-  { match: (from) => from.includes("google.com"), parse: parseGoogleFlights },
-  { match: (from) => from.includes("trip.com"), parse: parseTrip },
-  { match: (from) => from.includes("skyscanner"), parse: parseSkyscanner },
-];
+import { extractPlainBody } from "../utils/emailBody";
+import { formatEmailForward } from "../utils/formatter";
 
 export function watchUnreadEmails(): void {
   const threads = GmailApp.search("is:unread", 0, 20);
@@ -21,18 +11,13 @@ export function watchUnreadEmails(): void {
         continue;
       }
 
-      const from = message.getFrom().toLowerCase();
-      const parser = PARSERS.find((entry) => entry.match(from));
-      if (!parser) {
-        continue;
-      }
+      const text = formatEmailForward(
+        message.getFrom(),
+        message.getSubject(),
+        extractPlainBody(message.getPlainBody(), message.getBody()),
+      );
 
-      const alert = parser.parse(message);
-      if (!alert) {
-        continue;
-      }
-
-      sendTelegramMessage(alert);
+      sendTelegramMessage(text);
       message.markRead();
     }
   }

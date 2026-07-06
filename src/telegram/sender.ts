@@ -1,6 +1,4 @@
-import { formatFlightAlert, type FlightAlert } from "../utils/formatter";
-
-export function sendTelegramMessage(alert: FlightAlert): void {
+export function sendTelegramMessage(text: string): void {
   const token = PropertiesService.getScriptProperties().getProperty("TELEGRAM_BOT_TOKEN");
   const chatId = PropertiesService.getScriptProperties().getProperty("TELEGRAM_CHAT_ID");
 
@@ -10,7 +8,7 @@ export function sendTelegramMessage(alert: FlightAlert): void {
 
   const payload = {
     chat_id: chatId,
-    text: formatFlightAlert(alert),
+    text,
     disable_web_page_preview: false,
   };
 

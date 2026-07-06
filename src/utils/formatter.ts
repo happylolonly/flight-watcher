@@ -1,27 +1,17 @@
-export type FlightAlert = {
-  provider: string;
-  route: string;
-  date: string;
-  price: string;
-  note: string;
-  link: string;
-};
+const TELEGRAM_MAX_LENGTH = 4096;
 
-export function formatFlightAlert(alert: FlightAlert): string {
-  const lines = [
-    `✈️ ${alert.provider}`,
-    "",
-    `📍 ${alert.route}`,
-    `📅 ${alert.date}`,
-    "",
-    `💰 ${alert.price}`,
-    "",
-    alert.note,
-  ];
+export function formatEmailForward(
+  from: string,
+  subject: string,
+  body: string,
+): string {
+  const header = `📧 ${from}\n\n${subject}\n\n`;
+  const maxBodyLength = TELEGRAM_MAX_LENGTH - header.length - 20;
 
-  if (alert.link) {
-    lines.push("", `🔗 ${alert.link}`);
+  let trimmedBody = body.trim();
+  if (trimmedBody.length > maxBodyLength) {
+    trimmedBody = `${trimmedBody.slice(0, maxBodyLength)}\n\n… (обрезано)`;
   }
 
-  return lines.join("\n");
+  return `${header}${trimmedBody}`;
 }
