@@ -1,0 +1,41 @@
+{
+  "name": "Flight Price Alerts",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "containerEnv": {
+    "TZ": "Asia/Ho_Chi_Minh",
+    "NPM_CONFIG_CACHE": "/home/vscode/.cache/npm",
+    "SSH_AUTH_SOCK": "/ssh-agent"
+  },
+  "remoteEnv": {
+    "GH_TOKEN": "${localEnv:GH_TOKEN}",
+    "GITHUB_PERSONAL_ACCESS_TOKEN": "${localEnv:GH_TOKEN}"
+  },
+  "mounts": [
+    "source=/run/host-services/ssh-auth.sock,target=/ssh-agent,type=bind",
+    "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind,consistency=delegated",
+    "source=flights-monitoring-claude-plugins,target=/home/vscode/.claude/plugins,type=volume",
+    "source=flights-monitoring-npm-cache,target=/home/vscode/.cache/npm,type=volume"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        }
+      }
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "remoteUser": "vscode"
+}

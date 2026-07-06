@@ -1,0 +1,16 @@
+{
+  "name": "flight-alerts",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "push": "npm run build && npx clasp push",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@google/clasp": "^2.5.0",
+    "@types/google-apps-script": "^1.0.83",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.3"
+  }
+}

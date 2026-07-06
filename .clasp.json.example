@@ -1,0 +1,7 @@
+{
+  "scriptId": "",
+  "rootDir": "dist",
+  "scriptExtensions": [".js"],
+  "htmlExtensions": [".html"],
+  "jsonExtensions": [".json"]
+}
