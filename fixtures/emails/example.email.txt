@@ -1,0 +1,10 @@
+From: Google Flights <alerts@google.com>
+Subject: Prices are lower for your tracked trip: Minsk to Beijing
+
+Track prices · Minsk → Beijing · Sep 12
+
+The price dropped to $389 (was $512).
+
+View deal: https://www.google.com/travel/flights/example
+
+You received this email because you turned on price tracking.

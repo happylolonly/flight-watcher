@@ -1,0 +1,43 @@
+name: Deploy to Apps Script
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Configure clasp
+        env:
+          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+          CLASP_RC: ${{ secrets.CLASP_RC }}
+          CLASP_SCRIPT_ID: ${{ secrets.CLASP_SCRIPT_ID }}
+        run: |
+          echo "$CLASP_CREDENTIALS" > creds.json
+          echo "$CLASP_RC" > ~/.clasprc.json
+          cat > .clasp.json <<EOF
+          {
+            "scriptId": "${CLASP_SCRIPT_ID}",
+            "rootDir": "dist",
+            "scriptExtensions": [".js"],
+            "htmlExtensions": [".html"],
+            "jsonExtensions": [".json"]
+          }
+          EOF
+
+      - name: Verify clasp auth
+        run: npx clasp login --status
+
+      - name: Build and push
+        run: npm run push

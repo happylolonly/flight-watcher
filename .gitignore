@@ -1,3 +1,9 @@
 node_modules/
 dist/
 .clasp.json
+.clasprc.json
+creds.json
+.env
+fixtures/emails/*
+!fixtures/emails/README.md
+!fixtures/emails/example.email.txt
