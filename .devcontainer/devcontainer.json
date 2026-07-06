@@ -3,7 +3,7 @@
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
   "containerEnv": {
     "TZ": "Asia/Ho_Chi_Minh",
-    "NPM_CONFIG_CACHE": "/home/vscode/.cache/npm",
+    "NPM_CONFIG_CACHE": "/home/node/.cache/npm",
     "SSH_AUTH_SOCK": "/ssh-agent"
   },
   "remoteEnv": {
@@ -12,9 +12,9 @@
   },
   "mounts": [
     "source=/run/host-services/ssh-auth.sock,target=/ssh-agent,type=bind",
-    "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind,consistency=delegated",
-    "source=flights-monitoring-claude-plugins,target=/home/vscode/.claude/plugins,type=volume",
-    "source=flights-monitoring-npm-cache,target=/home/vscode/.cache/npm,type=volume"
+    "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind,consistency=delegated",
+    "source=flights-monitoring-claude-plugins,target=/home/node/.claude/plugins,type=volume",
+    "source=flights-monitoring-npm-cache,target=/home/node/.cache/npm,type=volume"
   ],
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {},
@@ -37,5 +37,5 @@
     }
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
-  "remoteUser": "vscode"
+  "remoteUser": "node"
 }
