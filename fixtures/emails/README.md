@@ -1,31 +1,31 @@
-# Email fixtures для локального preview
+# Email fixtures for local preview
 
-Скопируй письма с почты сюда и проверь формат Telegram-сообщения:
+Copy real alert emails here to preview the Telegram message format.
 
 ```bash
-npm run preview:emails          # вывод в терминал
-npm run send:telegram           # отправить все фикстуры в Telegram
-npm run send:telegram -- skyscanner   # только файлы с "skyscanner" в имени
+npm run preview:emails              # print to terminal
+npm run send:telegram               # send all fixtures to Telegram
+npm run send:telegram -- skyscanner   # files matching "skyscanner" in the name
 ```
 
-Нужен `.env` с `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`.
+Requires `.env` with `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`.
 
-## Формат `.email.txt` (проще всего)
+## `.email.txt` format (simplest)
 
-Создай файл, например `google-flights.email.txt`:
+Create a file, e.g. `google-flights.email.txt`:
 
 ```text
 From: Google Flights <alerts@google.com>
 Subject: Your flight price dropped
 
-Вставь сюда тело письма (plain text или HTML)
+Paste the email body here (plain text or HTML)
 ```
 
-## Формат `.eml`
+## `.eml` format
 
-Сохрани письмо из Gmail как `.eml` и положи в эту папку.
+Save an email from Gmail as `.eml` and drop it in this folder.
 
-## Важно
+## Notes
 
-- Реальные письма в git не коммитим (папка в `.gitignore`)
-- Для примера есть `example.email.txt`
+- Real emails are not committed (folder is mostly in `.gitignore`)
+- Example file: `example.email.txt`
